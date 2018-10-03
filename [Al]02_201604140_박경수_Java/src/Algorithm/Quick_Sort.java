@@ -11,8 +11,7 @@ import Algorithm.Partition;
 
 public class Quick_Sort {
 	Partition Pt = new Partition();
-	ArrayList<Integer> array_100 = new ArrayList<>();
-	ArrayList<Integer> array_1000 = new ArrayList<>();
+	ArrayList<Integer> array = new ArrayList<>();
 	int p = 0; // 처음 인덱스
 	int r = 0; // 마지막 인덱스
 
@@ -32,11 +31,15 @@ public class Quick_Sort {
 	// 피벗의 위치에 따른 정렬을 두 번하고 비교를 하며 파일로 저장한다.
 	public void Quick_Sort_test100() {
 		test100_read();
-		r = array_100.size()-1;
-		Quick_Sorting_Pivotislast(array_100,p,r);
+		r = array.size()-1;
+		Quick_Sorting_Pivotislast(array,p,r);
 		int repeat_last = Pt.repeat_times();
 		Pt.repeat_init();
-		Quick_Sorting_Pivotisrandom(array_100,p,r);
+		
+		array.clear();
+		test100_read();
+		r = array.size()-1;
+		Quick_Sorting_Pivotisrandom(array,p,r);
 		int repeat_random = Pt.repeat_times();
 		Pt.repeat_init();
 		test100_save();
@@ -49,12 +52,17 @@ public class Quick_Sort {
 
 	// 피벗의 위치에 따른 정렬을 두 번하고 비교를 하며 파일로 저장한다.
 	public void Quick_Sort_test1000() {
+		array.clear();
 		test1000_read();
-		r = array_1000.size()-1;
-		Quick_Sorting_Pivotislast(array_1000,p,r);
+		r = array.size()-1;
+		Quick_Sorting_Pivotislast(array,p,r);
 		int repeat_last = Pt.repeat_times();
 		Pt.repeat_init();
-		Quick_Sorting_Pivotisrandom(array_1000,p,r);
+
+		array.clear();
+		test1000_read();
+		r = array.size()-1;
+		Quick_Sorting_Pivotisrandom(array,p,r);
 		int repeat_random = Pt.repeat_times();
 		Pt.repeat_init();
 		test1000_save();
@@ -94,7 +102,7 @@ public class Quick_Sort {
 			String line = "";
 			int index = 0;
 			while ((line = bufreader.readLine()) != null) {
-				array_100.add(index, Integer.parseInt(line));
+				array.add(index, Integer.parseInt(line));
 				index++;
 			}
 			bufreader.close();
@@ -116,7 +124,7 @@ public class Quick_Sort {
 			String line = "";
 			int index = 0;
 			while ((line = bufreader.readLine()) != null) {
-				array_1000.add(index, Integer.parseInt(line));
+				array.add(index, Integer.parseInt(line));
 				index++;
 			}
 			bufreader.close();
@@ -136,8 +144,8 @@ public class Quick_Sort {
 		try {
 			writer = new FileWriter(file, false);
 
-			for (int i = 0; i < array_100.size(); i++) {
-				writer.write(array_100.get(i) + "\r\n");
+			for (int i = 0; i < array.size(); i++) {
+				writer.write(array.get(i) + "\r\n");
 			}
 			writer.flush();
 		} catch (IOException e) {
@@ -160,8 +168,8 @@ public class Quick_Sort {
 		try {
 			writer = new FileWriter(file, false);
 
-			for (int i = 0; i < array_1000.size(); i++) {
-				writer.write(array_1000.get(i) + "\r\n");
+			for (int i = 0; i < array.size(); i++) {
+				writer.write(array.get(i) + "\r\n");
 			}
 			writer.flush();
 		} catch (IOException e) {

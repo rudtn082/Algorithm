@@ -9,7 +9,7 @@ public class main {
 		System.out.println("정렬 후 Resource 폴더에  txt 파일로 저장합니다...");
 		System.out.println("------------------------------------------------");
 		Merge_Sort Merge = new Merge_Sort();
-		//Quick_Sort Quick = new Quick_Sort();
+		Quick_Sort Quick = new Quick_Sort();
 		System.out.println("완료되었습니다!");
 	}
 }

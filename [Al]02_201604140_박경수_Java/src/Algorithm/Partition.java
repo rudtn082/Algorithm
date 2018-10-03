@@ -10,11 +10,10 @@ public class Partition {
 	}
 	
 	public int Partition_Pivotislast(ArrayList array, int p, int r) {
-		int Pivot = r;
 		int i = p-1;
 		int repeat_temp = 0;
 		for(int j = p; j < r; j++) {
-			if((int)array.get(j) <= (int)array.get(Pivot)) {
+			if((int)array.get(j) <= (int)array.get(r)) {
 				i++;
 				Collections.swap(array, i, j);
 			}
@@ -27,11 +26,12 @@ public class Partition {
 	
 	public int Partition_Pivotisrandom(ArrayList array, int p, int r) {
 		double randomv = Math.random();
-		int Pivot = (int)(randomv * 99) + 1;
+		int Pivot = (int)(randomv * (r-p)) + p;	
 		int i = p-1;
+		Collections.swap(array, r, Pivot);
 		int repeat_temp = 0;
 		for(int j = p; j < r; j++) {
-			if((int)array.get(j) <= (int)array.get(Pivot)) {
+			if((int)array.get(j) <= (int)array.get(r)) {
 				i++;
 				Collections.swap(array, i, j);
 			}
