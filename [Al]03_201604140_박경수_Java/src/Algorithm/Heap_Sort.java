@@ -11,34 +11,62 @@ import java.util.Collections;
 
 public class Heap_Sort {
 	Heapify heapify = new Heapify();
-	ArrayList<Integer> array = new ArrayList<>(); //A - 정렬 할 배열
+	ArrayList<Integer> array = new ArrayList<>();
 	Build_Heap bh = new Build_Heap();
 	
 	public Heap_Sort() {
 		System.out.println("Heap_Sort is starting..."+ "\n");
 		Heap_Sorting();
-
 		System.out.println("Heap_Sort save successful");
 		System.out.println("------------------------------------------------");
 		
 	}
 	
+	public void init_array() {
+		array.clear();
+	}
+	
 	public void Heap_Sorting() {
+		line_100();
+		line_1000();
+	}
+	
+	public void line_100() {
+		init_array();
 		test100_read();
 		Max_Heap_Sort();
-		test100_save();
+		test100_Max_save();
+		init_array();
+		test100_read();
+		Min_Heap_Sort();
+		test100_Min_save();
+	}
+	
+	public void line_1000() {
+		init_array();
+		test1000_read();
+		Max_Heap_Sort();
+		test1000_Max_save();
+		init_array();
+		test1000_read();
+		Min_Heap_Sort();
+		test1000_Min_save();
 	}
 	
 	public void Max_Heap_Sort() {
-		bh.Max_Build_Heap(array);
-		for(int i = array.size()-1; i > 1; i--) {
-			Collections.swap(array, 1, i);
-			heapify.Max_Heapify(array, 1);
+		bh.Max_Build_Heap(array, array.size()-1);
+		for(int i = array.size()-1; i > 0; i--) {
+			Collections.swap(array, 0, i);
+			heapify.Max_Heapify(array, 0, i-1);
 		}
 	}
 	
 	public void Min_Heap_Sort() {
-		
+		bh.Min_Build_Heap(array, array.size()-1);
+		for(int i = array.size()-1; i > 0; i--) {
+			Collections.swap(array, 0, i);
+			heapify.Min_Heapify(array, 0, i-1);
+		}
 	}
 	
 	// 100라인에 파일 읽어오기 함수
@@ -85,10 +113,10 @@ public class Heap_Sort {
 		}
 	}
 	
-	// 100라인에 대한 정렬 후 파일 저장 함수
-	public void test100_save() {
+	// 100라인(max)에 대한 정렬 후 파일 저장 함수
+	public void test100_Max_save() {
 		String path = System.getProperty("user.dir");
-		File file = new File(path + "/src/Resource/Heap_100.txt");
+		File file = new File(path + "/src/Resource/Heap_Max_100.txt");
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(file, false);
@@ -109,10 +137,10 @@ public class Heap_Sort {
 		}
 	}
 	
-	// 1000라인에 대한 정렬 후 파일 저장 함수
-	public void test1000_save() {
+	// 1000라인(max)에 대한 정렬 후 파일 저장 함수
+	public void test1000_Max_save() {
 		String path = System.getProperty("user.dir");
-		File file = new File(path + "/src/Resource/Heap_1000.txt");
+		File file = new File(path + "/src/Resource/Heap_Max_1000.txt");
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(file, false);
@@ -132,4 +160,52 @@ public class Heap_Sort {
 			}
 		}
 	}
+	
+	// 100라인(min)에 대한 정렬 후 파일 저장 함수
+		public void test100_Min_save() {
+			String path = System.getProperty("user.dir");
+			File file = new File(path + "/src/Resource/Heap_Min_100.txt");
+			FileWriter writer = null;
+			try {
+				writer = new FileWriter(file, false);
+
+				for (int i = 0; i < array.size(); i++) {
+					writer.write(array.get(i) + "\r\n");
+				}
+				writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (writer != null)
+						writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		// 1000라인(min)에 대한 정렬 후 파일 저장 함수
+		public void test1000_Min_save() {
+			String path = System.getProperty("user.dir");
+			File file = new File(path + "/src/Resource/Heap_Min_1000.txt");
+			FileWriter writer = null;
+			try {
+				writer = new FileWriter(file, false);
+
+				for (int i = 0; i < array.size(); i++) {
+					writer.write(array.get(i) + "\r\n");
+				}
+				writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (writer != null)
+						writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 }
