@@ -45,12 +45,19 @@ public class Heap_Sort {
 	public void line_1000() {
 		init_array();
 		test1000_read();
+		long start = System.nanoTime();
 		Max_Heap_Sort();
+		long end = System.nanoTime();
+		long time1 = end - start;
 		test1000_Max_save();
 		init_array();
 		test1000_read();
+		start = System.nanoTime();
 		Min_Heap_Sort();
+		end = System.nanoTime();
+		long time2 = end - start;
 		test1000_Min_save();
+		System.out.println("1000_MAX 시간은 " + ((long)time1 / 1000000000.0) + " / 1000_MIN 시간은 " + ((long)time2 / 1000000000.0));
 	}
 	
 	public void Max_Heap_Sort() {

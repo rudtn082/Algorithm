@@ -25,8 +25,12 @@ public class Counting_Sort {
 		test100_save();
 		init_array(); // 1000줄에 대해서 정렬하기 위해 ArrayList 초기화
 		test1000_read();
+		long start = System.nanoTime();
 		Counting_Sort();
+		long end = System.nanoTime();
+		long time1 = end - start;
 		test1000_save();
+		System.out.println("시간은 " + ((long)time1 / 1000000000.0));
 		System.out.println("Counting_Sort save successful");
 		System.out.println("------------------------------------------------");
 	}
