@@ -1,25 +1,49 @@
 package Node;
 
 public class Node {
-	String data;
-	Node left;
-	Node right;
-	Node root;
+	int data;
+	private Node left;
+	private Node right;
     
     public Node(){
-        this.left = null;
-        this.right = null;
-        this.root = null;
+        this.data = 0;
+        this.setLeft(null);
+        this.setRight(null);
     }
     
-    public Node(String data){
+    public Node(int data){
         this.data = data;
-        this.left = null;
-        this.right = null;
-        this.root = null;
+        this.setLeft(null);
+        this.setRight(null);
     }
     
-    public Object getData(){
+    // 중위순회
+    public void inorder(Node node) {
+    	if (node.left != null)
+    		inorder(node.left);
+        System.out.println(node.data);
+        if (node.right != null)
+    		inorder(node.right);
+    }
+    
+    // get, set함수
+    public int getData(){
         return data;
     }
+
+	public Node getLeft() {
+		return left;
+	}
+
+	public void setLeft(Node left) {
+		this.left = left;
+	}
+
+	public Node getRight() {
+		return right;
+	}
+
+	public void setRight(Node right) {
+		this.right = right;
+	}
 }
