@@ -3,9 +3,7 @@ package Algorithm;
 import Node.Node;
 
 public class Insert {
-	public Insert() {
-		
-	}
+	private static int repeat = 0;
 	public Node Insert(Node node, Node insert_node) {
 		Node temp_node = null;
 		Node x = node;
@@ -14,7 +12,9 @@ public class Insert {
 			if(insert_node.getData() < x.getData())
 				x = x.getLeft();
 			else x = x.getRight();
+			repeat++;
 		}
+		insert_node.setParent(temp_node);
 		if(temp_node == null)
 			node = insert_node;
 		else if(insert_node.getData() < temp_node.getData())
@@ -23,4 +23,13 @@ public class Insert {
 			temp_node.setRight(insert_node);
 		return node;
 	}
+	
+	public static int get_repeat() {
+		return repeat;
+	}
+	
+	public static void init_repeat() {
+		repeat = 0;
+	}
+	
 }

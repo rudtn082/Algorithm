@@ -8,11 +8,11 @@ public class Predecessor {
 		if(node.getLeft() != null)
 			return Maximum.Maximum(node.getLeft());
 		Node node_p = null;
-		node_p.setLeft(node);
+		node.setParent(node_p);
 		while(node_p != null && node == node_p.getLeft()) {
 			node = node_p;
 			Node node_pp = null;
-			node_pp.setLeft(node_p); 
+			node_pp.setParent(node_p);
 		}
 		return node_p;
 	}

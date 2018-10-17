@@ -4,6 +4,7 @@ public class Node {
 	int data;
 	private Node left;
 	private Node right;
+	private Node parent;
     
     public Node(){
         this.data = 0;
@@ -45,5 +46,13 @@ public class Node {
 
 	public void setRight(Node right) {
 		this.right = right;
+	}
+
+	public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 }

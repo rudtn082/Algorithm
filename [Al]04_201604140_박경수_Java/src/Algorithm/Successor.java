@@ -8,11 +8,11 @@ public class Successor {
 		if(node.getRight() != null)
 			return Minimum.Minimum(node.getRight());
 		Node node_p = null;
-		node_p.setRight(node);
+		node.setParent(node_p);
 		while(node_p != null && node == node_p.getRight()) {
 			node = node_p;
 			Node node_pp = null;
-			node_pp.setRight(node_p); 
+			node_pp.setParent(node_p);
 		}
 		return node_p;
 	}
