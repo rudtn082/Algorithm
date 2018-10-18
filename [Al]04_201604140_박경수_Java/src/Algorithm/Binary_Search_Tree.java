@@ -20,8 +20,12 @@ public class Binary_Search_Tree {
 		Data1_read_insert();
 		System.out.println("Data1, Root node의 Successor값 : " + Successor.Successor(node).getData());
 		System.out.println("Data1, Root node의 Predecessor값 : " + Predecessor.Predecessor(node).getData()+"\n");
+		
+		//Delete.Delete(node, node.getRight().getLeft().getRight());
+		//node.inorder(node);
+		
 		Data1_save();
-		// Delete.Delete(node, node.getRight().getLeft().getRight());
+		
 		
 		//Data1
 		node = null; // 노드 초기화
