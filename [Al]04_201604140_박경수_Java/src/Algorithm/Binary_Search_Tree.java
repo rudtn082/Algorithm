@@ -23,6 +23,8 @@ public class Binary_Search_Tree {
 		
 		//Delete.Delete(node, node.getRight().getLeft().getRight());
 		//node.inorder(node);
+		Recursive_Search Rs = new Recursive_Search();
+		Rs.Recursive_Search(node, 1);
 		
 		Data1_save();
 		

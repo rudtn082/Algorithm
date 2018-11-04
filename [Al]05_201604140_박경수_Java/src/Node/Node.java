@@ -5,6 +5,7 @@ public class Node {
 	int color; //0은 레드, 1은 블랙
 	private Node left;
 	private Node right;
+	private Node parent;
     
     public Node(){
     	this.color = 0;
@@ -48,5 +49,21 @@ public class Node {
 
 	public void setRight(Node right) {
 		this.right = right;
+	}
+
+	public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
+	}
+	
+	public int getColor() {
+		return this.color;
+	}
+
+	public void setColor(int Color) {
+		this.color = Color;
 	}
 }
