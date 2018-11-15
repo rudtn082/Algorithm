@@ -21,10 +21,14 @@ public class Union_Find {
 	public Union_Find() {
 		System.out.println("Union_Find is starting..." + "\n");
 		data_read();
+		
+		// Make Set
 		for (int i = 0; i < node_set.size(); i++) {
 			Make_Set(node_set.get(i));
 		}
 
+		
+		// 각 번호별 Union
 		for (int i = 0; i < node_set.size(); i++) {
 			// data가 1일 경우
 			if (node_set.get(i).getdata() == 1) {
@@ -96,14 +100,6 @@ public class Union_Find {
 	// 노드의 집합을 만드는 함수
 	public void node_set(Node new_node) {
 		node_set.add(new_node);
-	}
-	
-	public void order(Node node) {
-		while(true){
-			System.out.println(node.getID());
-			if(node.getParent() == node) break;
-			node = node.getParent();			
-		}
 	}
 
 	// 파일 읽어오기 함수
