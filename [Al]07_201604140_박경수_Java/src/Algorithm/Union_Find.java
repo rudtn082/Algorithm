@@ -24,7 +24,7 @@ public class Union_Find {
 		for (int i = 0; i < node_set.size(); i++) {
 			Make_Set(node_set.get(i));
 		}
-		
+
 		for (int i = 0; i < node_set.size(); i++) {
 			// data가 1일 경우
 			if (node_set.get(i).getdata() == 1) {
@@ -72,10 +72,8 @@ public class Union_Find {
 					Union(node_set.get(i), data_5);
 			}
 		}
-		
-		for (int i = 0; i < node_set.size(); i++) {
-			//
-		}
+
+		data_save();
 		System.out.println("Union_Find save successful");
 		System.out.println("------------------------------------------------");
 	}
@@ -98,6 +96,14 @@ public class Union_Find {
 	// 노드의 집합을 만드는 함수
 	public void node_set(Node new_node) {
 		node_set.add(new_node);
+	}
+	
+	public void order(Node node) {
+		while(true){
+			System.out.println(node.getID());
+			if(node.getParent() == node) break;
+			node = node.getParent();			
+		}
 	}
 
 	// 파일 읽어오기 함수
@@ -125,24 +131,39 @@ public class Union_Find {
 		}
 	}
 
-	// // 파일 저장 함수
-	// public void data_save() {
-	// String path = System.getProperty("user.dir");
-	// File file = new File(path + "/src/Resource/Find_Result.txt");
-	// FileWriter writer = null;
-	// try {
-	// writer = new FileWriter(file, false);
-	// inorder(node, writer);
-	// writer.flush();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// } finally {
-	// try {
-	// if (writer != null)
-	// writer.close();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// }
+	// 파일 저장 함수
+	public void data_save() {
+		Node node = null;
+		for (int i = 0; i < 5; i++) {
+			if(i == 0) node = data_1;
+			else if(i == 1) node = data_2;
+			else if(i == 2) node = data_3;
+			else if(i == 3) node = data_4;
+			else if(i == 4) node = data_5;
+			
+			String path = System.getProperty("user.dir");
+			File file = new File(path + "/src/Resource/Find_Result-" + (i+1) + ".txt");
+			FileWriter writer = null;
+			try {
+				writer = new FileWriter(file, false);
+				writer.write(i+1 + ": ");
+				while(true){
+					writer.write(node.getID());
+					if(node.getParent() == node) break;
+					node = node.getParent();
+					writer.write(", ");
+				}
+				writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (writer != null)
+						writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
