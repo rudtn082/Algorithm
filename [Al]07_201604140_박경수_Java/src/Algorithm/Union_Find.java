@@ -11,73 +11,61 @@ import java.util.ArrayList;
 import Node.Node;
 
 public class Union_Find {
-	ArrayList<Node> node_set = new ArrayList<>();
+	Node root = null;
+	Node temp = null;
 	Node data_1 = null;
 	Node data_2 = null;
 	Node data_3 = null;
 	Node data_4 = null;
 	Node data_5 = null;
+	Node data_all = null;
 
 	public Union_Find() {
 		System.out.println("Union_Find is starting..." + "\n");
 		data_read();
 		
-		// Make Set
-		for (int i = 0; i < node_set.size(); i++) {
-			Make_Set(node_set.get(i));
-		}
-
+		Node temp_root = root;
 		
-		// 각 번호별 Union
-		for (int i = 0; i < node_set.size(); i++) {
-			// data가 1일 경우
-			if (node_set.get(i).getdata() == 1) {
-				// data가 1인 트리가 null일 경우
-				if (data_1 == null)
-					data_1 = node_set.get(i);
-				// null이 아닐 경우
-				else
-					Union(node_set.get(i), data_1);
-			}
-			// data가 2일 경우
-			else if (node_set.get(i).getdata() == 2) {
-				// data가 2인 트리가 null일 경우
-				if (data_2 == null)
-					data_2 = node_set.get(i);
-				// null이 아닐 경우
-				else
-					Union(node_set.get(i), data_2);
-			}
-			// data가 3일 경우
-			else if (node_set.get(i).getdata() == 3) {
-				// data가 3인 트리가 null일 경우
-				if (data_3 == null)
-					data_3 = node_set.get(i);
-				// null이 아닐 경우
-				else
-					Union(node_set.get(i), data_3);
-			}
-			// data가 4일 경우
-			else if (node_set.get(i).getdata() == 4) {
-				// data가 4인 트리가 null일 경우
-				if (data_4 == null)
-					data_4 = node_set.get(i);
-				// null이 아닐 경우
-				else
-					Union(node_set.get(i), data_4);
-			}
-			// data가 5일 경우
-			else if (node_set.get(i).getdata() == 5) {
-				// data가 5인 트리가 null일 경우
-				if (data_5 == null)
-					data_5 = node_set.get(i);
-				// null이 아닐 경우
-				else
-					Union(node_set.get(i), data_5);
-			}
+		// Make Set
+		while(temp_root != null) {
+			Make_Set(temp_root);
+			temp_root = temp_root.getNext();
 		}
 
-		data_save();
+		temp_root = root;
+		// 각 숫자별 Union
+		while(temp_root != null) {
+			if(temp_root.getnumber() == 1) {
+				if(data_1 == null) data_1 = temp_root;
+				else Union(temp_root, data_1);
+			} else if(temp_root.getnumber() == 2) {
+				if(data_2 == null) data_2 = temp_root;
+				else Union(temp_root, data_2);
+			} else if(temp_root.getnumber() == 3) {
+				if(data_3 == null) data_3 = temp_root;
+				else Union(temp_root, data_3);
+			} else if(temp_root.getnumber() == 4) {
+				if(data_4 == null) data_4 = temp_root;
+				else Union(temp_root, data_4);
+			} else if(temp_root.getnumber() == 5) {
+				if(data_5 == null) data_5 = temp_root;
+				else Union(temp_root, data_5);
+			}
+			temp_root = temp_root.getNext();
+		}
+
+		// Output1 저장
+		data_save_1();
+		
+		// 모든 트리를 유니온
+		data_all = data_1;
+		Union(data_2, data_all);
+		Union(data_3, data_all);
+		Union(data_4, data_all);
+		Union(data_5, data_all);
+		
+		// Output2 저장
+		data_save_2();
 		System.out.println("Union_Find save successful");
 		System.out.println("------------------------------------------------");
 	}
@@ -97,26 +85,30 @@ public class Union_Find {
 		Find_Set(node2).setParent(Find_Set(node1));
 	}
 
-	// 노드의 집합을 만드는 함수
-	public void node_set(Node new_node) {
-		node_set.add(new_node);
-	}
-
 	// 파일 읽어오기 함수
 	public void data_read() {
 		try {
 			String path = System.getProperty("user.dir");
-			File file = new File(path + "/src/Resource/Data.txt");
+			File file = new File(path + "/src/Resource/Data_updated.txt");
 			FileReader filereader = new FileReader(file);
 			BufferedReader bufreader = new BufferedReader(filereader);
 			String line = "";
 			while ((line = bufreader.readLine()) != null) {
 				Node new_node = new Node();
-				new_node.setID(line.charAt(0));
+				char[] str = new char[6];
+				line.getChars(0, 5, str, 0);
+				new_node.setID(String.valueOf(str));
 				// 아스키 코드값이 나오므로 - '0'
-				new_node.setdata(line.charAt(2) - '0');
+				new_node.setnumber(line.charAt(6) - '0');
 				new_node.setParent(null);
-				node_set(new_node);
+				if(temp == null) {
+					root = new_node;
+					temp = new_node;
+				}
+				else {
+					temp.setNext(new_node);
+					temp = new_node;
+				}
 			}
 			bufreader.close();
 			filereader.close();
@@ -128,37 +120,54 @@ public class Union_Find {
 	}
 
 	// 파일 저장 함수
-	public void data_save() {
-		Node node = null;
-		for (int i = 0; i < 5; i++) {
-			if(i == 0) node = data_1;
-			else if(i == 1) node = data_2;
-			else if(i == 2) node = data_3;
-			else if(i == 3) node = data_4;
-			else if(i == 4) node = data_5;
+	public void data_save_1() {
+		Node node = root;
+		String path = System.getProperty("user.dir");
+		File file = new File(path + "/src/Resource/Output1.txt");
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(file, false);
+			while(node != null){
+				System.out.println("1");
+				writer.write(node.getID().toString() + "   " + node.getParent().getID() + "\r\n");
+				node = node.getNext();
+			}
 			
-			String path = System.getProperty("user.dir");
-			File file = new File(path + "/src/Resource/Find_Result-" + (i+1) + ".txt");
-			FileWriter writer = null;
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				writer = new FileWriter(file, false);
-				writer.write(i+1 + ": ");
-				while(true){
-					writer.write(node.getID());
-					if(node.getParent() == node) break;
-					node = node.getParent();
-					writer.write(", ");
-				}
-				writer.flush();
+				if (writer != null)
+					writer.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (writer != null)
-						writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			}
+		}
+	}
+	
+	// 파일 저장 함수
+	public void data_save_2() {
+		Node node = root;
+		String path = System.getProperty("user.dir");
+		File file = new File(path + "/src/Resource/Output2.txt");
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(file, false);
+			while(node != null){
+				writer.write(node.getID().toString() + "   " + node.getParent().getID() + "\r\n");
+				node = node.getNext();
+			}
+			
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (writer != null)
+					writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

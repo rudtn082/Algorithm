@@ -1,34 +1,39 @@
 package Node;
 
 public class Node {
-	private int data;
-	private char ID;
+	private int number;
+	private String ID;
 	private Node parent;
+	private Node Next;
     
     public Node(){
-        this.data = 0;
-        this.setID(' ');;
+        this.number = 0;
+        this.setID(null);
+        parent = null;
+        Next = null;
     }
     
     public Node(int data){
-        this.data = data;
-        this.setID(' ');
+        this.number = data;
+        this.setID(null);
+        parent = null;
+        Next = null;
     }
     
     // get, setÇÔ¼ö
-    public int getdata(){
-        return data;
+    public int getnumber(){
+        return number;
     }
     
-	public void setdata(int data) {
-		this.data = data;
+	public void setnumber(int number) {
+		this.number = number;
 	}
 
-	public char getID() {
+	public String getID() {
 		return ID;
 	}
 
-	public void setID(char ID) {
+	public void setID(String ID) {
 		this.ID = ID;
 	}
 
@@ -38,5 +43,13 @@ public class Node {
 
 	public void setParent(Node parent) {
 		this.parent = parent;
+	}
+	
+	public Node getNext() {
+		return Next;
+	}
+
+	public void setNext(Node Next) {
+		this.Next = Next;
 	}
 }
