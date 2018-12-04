@@ -6,24 +6,38 @@ public class Vertex {
 	final int BLACK = 2;
 	int Color;
 	int d;
+	int f; // DFS »ç¿ë
 	Vertex p;
-	
+
 	public int getColor() {
 		return Color;
 	}
+
 	public void setColor(int color) {
 		Color = color;
 	}
+
 	public int getD() {
 		return d;
 	}
+
 	public void setD(int d) {
 		this.d = d;
 	}
+
 	public Vertex getP() {
 		return p;
 	}
+
 	public void setP(Vertex p) {
 		this.p = p;
+	}
+
+	public int getF() {
+		return f;
+	}
+
+	public void setF(int f) {
+		this.f = f;
 	}
 }

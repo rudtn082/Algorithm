@@ -5,40 +5,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
-public class BFS {
+public class DFS {
 	final int WHITE = 0;
 	final int GRAY = 1;
 	final int BLACK = 2;
 	final int INFINITE = 9999;
 	int[][] Graph;
 	Vertex[] Vertex;
-	Queue<Vertex> q = new LinkedList<Vertex>();
+	int time = 0;
 
-	public BFS() {
-		int startNum; // 시작점 번호
-		while (true) {
-			System.out.println("시작점 번호를 선택하세요");
-			Scanner sc = new Scanner(System.in);
-			startNum = sc.nextInt();
-			if (startNum > 7 || startNum < 0)
-				continue;
-			break;
-		}
-
-		System.out.println("");
-		
+	public DFS() {
 		graph_read(); // 파일 읽기
 		init(); // 초기화
-		BFS(Graph, startNum); // BFS
+		DFS(Graph); // DFS
 
 		// 출력
 		for (int v = 0; v < Vertex.length; v++) {
-			System.out.println(Vertex[v].getD());
+			System.out.println(Vertex[v].getD() + "  " + Vertex[v].getF());
 		}
+
 	}
 
 	public void init() {
@@ -47,40 +33,46 @@ public class BFS {
 		}
 	}
 
-	public void BFS(int[][] Graph, int s) {
+	public void DFS(int[][] G) {
 		for (int v = 0; v < Vertex.length; v++) {
 			Vertex[v].setColor(WHITE);
-			Vertex[v].setD(9999);
 			Vertex[v].setP(null);
 		}
-		Vertex[s].setColor(GRAY);
-		Vertex[s].setD(0);
-		Vertex[s].setP(null);
-		q.offer(Vertex[s]);
-		while (!q.isEmpty()) {
-			Vertex u = q.poll();
-
-			// 몇 번째 Vertex인지 확인
-			int uNum = 0;
-			for (int v = 0; v < Vertex.length; v++) {
-				if (Vertex[v] == u) {
-					uNum = v;
-				}
+		time = 0;
+		for (int v = 0; v < Vertex.length; v++) {
+			if (Vertex[v].getColor() == WHITE) {
+				DFS_VISIT(G, Vertex[v]);
 			}
-
-			// 인접 행렬
-			for (int v = 0; v < Graph[uNum].length; v++) {
-				if (Graph[uNum][v] == 1) {
-					if (Vertex[v].getColor() == WHITE) {
-						Vertex[v].setColor(GRAY);
-						Vertex[v].setD(u.getD() + 1);
-						Vertex[v].setP(u);
-						q.offer(Vertex[v]);
-					}
-				}
-			}
-			u.setColor(BLACK);
 		}
+	}
+
+	public void DFS_VISIT(int[][] G, Vertex u) {
+		time = time + 1;
+		u.setD(time);
+		u.setColor(GRAY);
+
+		// 몇 번째 Vertex인지 확인
+		int uNum = 0;
+		for (int v = 0; v < Vertex.length; v++) {
+			if (Vertex[v] == u) {
+				uNum = v;
+			}
+		}
+
+		// 인접 행렬
+		for (int v = 0; v < Graph[uNum].length; v++) {
+			if (Graph[uNum][v] == 1) {
+				if (Vertex[v].getColor() == WHITE) {
+					Vertex[v].setP(u);
+					DFS_VISIT(G, Vertex[v]);
+				}
+			}
+		}
+
+		u.setColor(BLACK);
+		time = time + 1;
+		u.setF(time);
+
 	}
 
 	// 파일 읽어오기 함수
@@ -114,4 +106,5 @@ public class BFS {
 			System.out.println(e);
 		}
 	}
+
 }
